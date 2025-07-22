@@ -10,10 +10,22 @@ local Window = Rayfield:CreateWindow({
 })
 
 local MainTab = Window:CreateTab("Main", 4483362458)
-
 local LinksTab = Window:CreateTab("Links", 4483362458)
 
 local LinksSection = LinksTab:CreateSection("Useful Links")
+
+-- Label RGB animado
+local rainbowLabel = LinksTab:CreateLabel("discord.gg/esYJzYnsfC")
+
+-- Função para animar a cor do texto
+spawn(function()
+    while true do
+        for hue = 0, 1, 0.01 do
+            rainbowLabel.TextColor3 = Color3.fromHSV(hue, 1, 1)
+            wait(0.05)
+        end
+    end
+end)
 
 LinksTab:CreateButton({
     Name = "Copy Discord Link",
@@ -25,12 +37,11 @@ LinksTab:CreateButton({
             Title = "Discord Link",
             Content = "Discord invite link copied to clipboard!",
             Duration = 5,
-            Image = 4483362458 -- opcional, pode ser um ID de imagem
+            Image = 4483362458 -- opcional
         })
     end
 })
 
--- Botão YouTube com tooltip e popup
 LinksTab:CreateButton({
     Name = "Copy YouTube Link",
     Tooltip = "Click to copy YouTube channel link",
