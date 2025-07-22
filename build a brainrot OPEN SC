@@ -1,31 +1,55 @@
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
-    Name = "discord.gg/esYJzYnsfC",
-    LoadingTitle = "Cumming...",
-    LoadingSubtitle = "By: TGMANKASKE",
+    Name = "Cash Tool",
+    LoadingTitle = "Loading...",
+    LoadingSubtitle = "By TGMANKASKE",
     ConfigurationSaving = {
         Enabled = false
     }
 })
 
+-- Tab principal com funcionalidades
 local MainTab = Window:CreateTab("Main", 4483362458)
-local LinksTab = Window:CreateTab("Links", 4483362458)
+local Amount = 0
 
-local LinksSection = LinksTab:CreateSection("Useful Links")
-
--- Label RGB animado
-local rainbowLabel = LinksTab:CreateLabel("discord.gg/esYJzYnsfC")
-
--- Função para animar a cor do texto
-spawn(function()
-    while true do
-        for hue = 0, 1, 0.01 do
-            rainbowLabel.TextColor3 = Color3.fromHSV(hue, 1, 1)
-            wait(0.05)
+MainTab:CreateInput({
+    Name = "Cash Amount",
+    PlaceholderText = "Example: 5000",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(text)
+        local number = tonumber(text)
+        if number and number > 0 then
+            Amount = number
+            print("Amount set to:", Amount)
+        else
+            Amount = 0
+            warn("Invalid amount")
         end
     end
-end)
+})
+
+MainTab:CreateButton({
+    Name = "Give Cash",
+    Callback = function()
+        if Amount > 0 then
+            local rewardType = "Cash"
+            local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):FindFirstChild("giveRewards")
+            if remote and remote:IsA("RemoteEvent") then
+                remote:FireServer(rewardType, Amount)
+                print("Sent:", Amount)
+            else
+                warn("RemoteEvent 'giveRewards' not found!")
+            end
+        else
+            warn("Invalid or zero amount.")
+        end
+    end
+})
+
+-- Tab exclusivo para links
+local LinksTab = Window:CreateTab("Links", 4483362458)
+local LinksSection = LinksTab:CreateSection("Useful Links")
 
 LinksTab:CreateButton({
     Name = "Copy Discord Link",
