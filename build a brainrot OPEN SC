@@ -34,16 +34,3 @@ MainSection:CreateButton("Give Money", function()
         warn("Amount must be greater than zero.")
     end
 end)
-
--- Additional section for links
-local LinksSection = Window:NewSection("Links")
-
-LinksSection:CreateButton("Discord Group", function()
-    print("Discord link copied.")
-    setclipboard("https://discord.gg/8A6k73JqCM")
-end)
-
-LinksSection:CreateButton("YouTube", function()
-    print("YouTube link copied.")
-    setclipboard("https://www.youtube.com/@TGMANKASKE")
-end)
