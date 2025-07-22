@@ -1,44 +1,49 @@
+-- Load Wizard UI Library
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 local Window = Library:NewWindow("Script")
-local Section = Window:NewSection("Credits: TGMANKASKE")
+local MainSection = Window:NewSection("Credits: TGMANKASKE")
 
-
+-- Variable to store the amount entered by the user
 local enteredAmount = 0
 
-
-Section:CreateTextBox("Change Money Quantity Here", "Ex: 5000", true, function(text)
+-- TextBox: User inputs amount of money to give
+MainSection:CreateTextBox("Enter money amount", "Example: 5000", true, function(text)
     local number = tonumber(text)
     if number and number > 0 then
         enteredAmount = number
+        print("Amount set to:", enteredAmount)
     else
+        warn("Invalid number entered.")
         enteredAmount = 0
     end
 end)
 
-Section:CreateButton("Give Money", function()
+-- Button: Fires the RemoteEvent with the entered amount
+MainSection:CreateButton("Give Money", function()
     if enteredAmount > 0 then
         local rewardType = "Cash"
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("giveRewards"):FireServer(rewardType, enteredAmount)
+        local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):FindFirstChild("giveRewards")
+
+        if remote and remote:IsA("RemoteEvent") then
+            remote:FireServer(rewardType, enteredAmount)
+            print("Money sent:", enteredAmount)
+        else
+            warn("RemoteEvent 'giveRewards' not found or is not a RemoteEvent.")
+        end
     else
-        warn("Invalid Number / zero !")
+        warn("Amount must be greater than zero.")
     end
 end)
 
+-- Additional section for links
+local LinksSection = Window:NewSection("Links")
 
-local Section = Window:NewSection("Links")
- 
-Section:CreateButton("Discord Group", function()
-print("HI")
- 
-setclipboard("https://discord.gg/8A6k73JqCM")
-toclipboard("https://discord.gg/8A6k73JqCM")
- 
+LinksSection:CreateButton("Discord Group", function()
+    print("Discord link copied.")
+    setclipboard("https://discord.gg/8A6k73JqCM")
 end)
- 
-Section:CreateButton("Youtube", function()
-print("HI")
- 
-setclipboard("https://www.youtube.com/@TGMANKASKE")
-toclipboard("https://www.youtube.com/@TGMANKASKE")
- 
+
+LinksSection:CreateButton("YouTube", function()
+    print("YouTube link copied.")
+    setclipboard("https://www.youtube.com/@TGMANKASKE")
 end)
