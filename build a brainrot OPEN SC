@@ -1,71 +1,47 @@
--- Load Rayfield UI Library
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
-    Name = "Money Giver",
-    LoadingTitle = "TGMANKASKE Script",
-    LoadingSubtitle = "by You",
+    Name = "Cash Tool",
+    LoadingTitle = "Loading...",
+    LoadingSubtitle = "By TGMANKASKE",
     ConfigurationSaving = {
         Enabled = false
     }
 })
 
-local MainTab = Window:CreateTab("Main", 4483362458)
-local LinksTab = Window:CreateTab("Links", 4483362458)
+local Tab = Window:CreateTab("Main", 4483362458)
+local Amount = 0
 
-local enteredAmount = 0
-
--- Input field for money amount
-MainTab:CreateInput({
-    Name = "Enter money amount",
+Tab:CreateInput({
+    Name = "Cash Amount",
     PlaceholderText = "Example: 5000",
     RemoveTextAfterFocusLost = false,
     Callback = function(text)
         local number = tonumber(text)
         if number and number > 0 then
-            enteredAmount = number
-            print("Amount set:", enteredAmount)
+            Amount = number
+            print("Amount set to:", Amount)
         else
-            warn("Invalid number")
-            enteredAmount = 0
+            Amount = 0
+            warn("Invalid amount")
         end
     end
 })
 
--- Give money button
-MainTab:CreateButton({
-    Name = "Give Money",
+Tab:CreateButton({
+    Name = "Give Cash",
     Callback = function()
-        if enteredAmount > 0 then
+        if Amount > 0 then
             local rewardType = "Cash"
             local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):FindFirstChild("giveRewards")
-
             if remote and remote:IsA("RemoteEvent") then
-                remote:FireServer(rewardType, enteredAmount)
-                print("Money sent:", enteredAmount)
+                remote:FireServer(rewardType, Amount)
+                print("Sent:", Amount)
             else
-                warn("RemoteEvent 'giveRewards' not found or is invalid.")
+                warn("RemoteEvent 'giveRewards' not found!")
             end
         else
-            warn("Amount must be greater than zero.")
+            warn("Invalid or zero amount.")
         end
-    end
-})
-
--- Discord link button
-LinksTab:CreateButton({
-    Name = "Copy Discord Link",
-    Callback = function()
-        setclipboard("https://discord.gg/8A6k73JqCM")
-        print("Discord link copied to clipboard.")
-    end
-})
-
--- YouTube link button
-LinksTab:CreateButton({
-    Name = "Copy YouTube Link",
-    Callback = function()
-        setclipboard("https://www.youtube.com/@TGMANKASKE")
-        print("YouTube link copied to clipboard.")
     end
 })
