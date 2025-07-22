@@ -1,47 +1,47 @@
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
-    Name = "Cash Tool",
-    LoadingTitle = "Loading...",
-    LoadingSubtitle = "By TGMANKASKE",
+    Name = "discord.gg/esYJzYnsfC",
+    LoadingTitle = "Cumming...",
+    LoadingSubtitle = "By: TGMANKASKE",
     ConfigurationSaving = {
         Enabled = false
     }
 })
 
-local Tab = Window:CreateTab("Main", 4483362458)
-local Amount = 0
+local MainTab = Window:CreateTab("Main", 4483362458)
 
-Tab:CreateInput({
-    Name = "Cash Amount",
-    PlaceholderText = "Example: 5000",
-    RemoveTextAfterFocusLost = false,
-    Callback = function(text)
-        local number = tonumber(text)
-        if number and number > 0 then
-            Amount = number
-            print("Amount set to:", Amount)
-        else
-            Amount = 0
-            warn("Invalid amount")
-        end
+local LinksTab = Window:CreateTab("Links", 4483362458)
+
+local LinksSection = LinksTab:CreateSection("Useful Links")
+
+LinksTab:CreateButton({
+    Name = "Copy Discord Link",
+    Tooltip = "Click to copy Discord invite link",
+    Callback = function()
+        setclipboard("https://discord.gg/8A6k73JqCM")
+        print("Discord link copied to clipboard.")
+        Rayfield:Notify({
+            Title = "Discord Link",
+            Content = "Discord invite link copied to clipboard!",
+            Duration = 5,
+            Image = 4483362458 -- opcional, pode ser um ID de imagem
+        })
     end
 })
 
-Tab:CreateButton({
-    Name = "Give Cash",
+-- Botão YouTube com tooltip e popup
+LinksTab:CreateButton({
+    Name = "Copy YouTube Link",
+    Tooltip = "Click to copy YouTube channel link",
     Callback = function()
-        if Amount > 0 then
-            local rewardType = "Cash"
-            local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):FindFirstChild("giveRewards")
-            if remote and remote:IsA("RemoteEvent") then
-                remote:FireServer(rewardType, Amount)
-                print("Sent:", Amount)
-            else
-                warn("RemoteEvent 'giveRewards' not found!")
-            end
-        else
-            warn("Invalid or zero amount.")
-        end
+        setclipboard("https://www.youtube.com/@TGMANKASKE")
+        print("YouTube link copied to clipboard.")
+        Rayfield:Notify({
+            Title = "YouTube Link",
+            Content = "YouTube channel link copied to clipboard!",
+            Duration = 5,
+            Image = 4483362458 -- opcional
+        })
     end
 })
