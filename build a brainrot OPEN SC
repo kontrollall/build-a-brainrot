@@ -1,12 +1,12 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 local Window = Library:NewWindow("Script")
-local Tab = Window:NewSection("Credits: TGMANKASKE")
+local Section = Window:NewSection("Credits: TGMANKASKE")
 
 
 local enteredAmount = 0
 
 
-Tab:CreateTextBox("Change Money Quantity Here", "Ex: 5000", true, function(text)
+Section:CreateTextBox("Change Money Quantity Here", "Ex: 5000", true, function(text)
     local number = tonumber(text)
     if number and number > 0 then
         enteredAmount = number
@@ -15,7 +15,7 @@ Tab:CreateTextBox("Change Money Quantity Here", "Ex: 5000", true, function(text)
     end
 end)
 
-Tab:CreateButton("Give Money", function()
+Section:CreateButton("Give Money", function()
     if enteredAmount > 0 then
         local rewardType = "Cash"
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("giveRewards"):FireServer(rewardType, enteredAmount)
@@ -25,9 +25,9 @@ Tab:CreateButton("Give Money", function()
 end)
 
 
-local Tab = Window:NewSection("Links")
+local Section = Window:NewSection("Links")
  
-Tab:CreateButton("Discord Group", function()
+Section:CreateButton("Discord Group", function()
 print("HI")
  
 setclipboard("https://discord.gg/8A6k73JqCM")
@@ -35,7 +35,7 @@ toclipboard("https://discord.gg/8A6k73JqCM")
  
 end)
  
-Tab:CreateButton("Youtube", function()
+Section:CreateButton("Youtube", function()
 print("HI")
  
 setclipboard("https://www.youtube.com/@TGMANKASKE")
