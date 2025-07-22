@@ -1,19 +1,18 @@
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
-    Name = "Cash Tool",
-    LoadingTitle = "Loading...",
+    Name = "discord.gg/esYJzYnsfC",
+    LoadingTitle = "Cumming...",
     LoadingSubtitle = "By TGMANKASKE",
     ConfigurationSaving = {
         Enabled = false
     }
 })
 
--- Tab principal com funcionalidades
-local MainTab = Window:CreateTab("Main", 4483362458)
+local Tab = Window:CreateTab("Main", 4483362458)
 local Amount = 0
 
-MainTab:CreateInput({
+Tab:CreateInput({
     Name = "Cash Amount",
     PlaceholderText = "Example: 5000",
     RemoveTextAfterFocusLost = false,
@@ -29,7 +28,7 @@ MainTab:CreateInput({
     end
 })
 
-MainTab:CreateButton({
+Tab:CreateButton({
     Name = "Give Cash",
     Callback = function()
         if Amount > 0 then
@@ -44,39 +43,5 @@ MainTab:CreateButton({
         else
             warn("Invalid or zero amount.")
         end
-    end
-})
-
--- Tab exclusivo para links
-local LinksTab = Window:CreateTab("Links", 4483362458)
-local LinksSection = LinksTab:CreateSection("Useful Links")
-
-LinksTab:CreateButton({
-    Name = "Copy Discord Link",
-    Tooltip = "Click to copy Discord invite link",
-    Callback = function()
-        setclipboard("https://discord.gg/8A6k73JqCM")
-        print("Discord link copied to clipboard.")
-        Rayfield:Notify({
-            Title = "Discord Link",
-            Content = "Discord invite link copied to clipboard!",
-            Duration = 5,
-            Image = 4483362458 -- opcional
-        })
-    end
-})
-
-LinksTab:CreateButton({
-    Name = "Copy YouTube Link",
-    Tooltip = "Click to copy YouTube channel link",
-    Callback = function()
-        setclipboard("https://www.youtube.com/@TGMANKASKE")
-        print("YouTube link copied to clipboard.")
-        Rayfield:Notify({
-            Title = "YouTube Link",
-            Content = "YouTube channel link copied to clipboard!",
-            Duration = 5,
-            Image = 4483362458 -- opcional
-        })
     end
 })
